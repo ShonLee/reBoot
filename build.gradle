@@ -1,0 +1,73 @@
+//所有子项目的通用配置
+buildscript {
+    //定义版本号
+    ext {
+        springBootVersion = '2.0.2.RELEASE'
+    }
+
+    //仓库
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        mavenCentral()
+        jcenter()
+    }
+
+    // 通用依赖 classpath
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+
+        // https://mvnrepository.com/artifact/com.oracle/ojdbc14
+        classpath 'com.oracle:ojdbc6:11.2.0.3'
+        // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+        classpath 'org.apache.commons:commons-lang3:3.4'
+        // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+        classpath 'org.hibernate:hibernate-core:5.2.12.Final'
+        classpath "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+        classpath "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
+        classpath "org.springframework.security:spring-security-core:4.2.2.RELEASE"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.shonlee'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+    mavenLocal()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    mavenCentral()
+    jcenter()
+}
+
+// 当前model依赖compile
+dependencies {
+    // https://mvnrepository.com/artifact/com.oracle/ojdbc14
+    compile("com.oracle:ojdbc6:11.2.0.3")
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile("org.apache.commons:commons-lang3:3.4")
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    compile("org.hibernate:hibernate-core:5.2.12.Final")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}")
+    compile("org.springframework.security:spring-security-core:4.2.2.RELEASE")
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('junit:junit:4.12')
+}
+
+javadoc {
+    options.encoding = "UTF-8"
+    options.charSet = "UTF-8"
+    title = "$project.name $version API"
+    classpath += sourceSets.main.compileClasspath
+    failOnError = false
+}
